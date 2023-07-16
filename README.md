@@ -359,42 +359,42 @@
     - FULL OUTER JOIN
         - LEFT OUTER JOIN과 RIGHT OUTER JOIN을 합친것으로, 양쪽 모두 조건이 일치하지 않는 데이터까지 모두 출력합니다.
  
-### Q. TO_CHAR
+### TO_CHAR
 
-### A. 오라클에서 쿼리문을 작성할 때 날짜, 숫자등의 값을 문자열로 반환
+- 오라클에서 쿼리문을 작성할 때 날짜, 숫자등의 값을 문자열로 반환
 
-- 날짜 포맷 변경 : SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') - 2023-06-23
+  - 날짜 포맷 변경 : SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') - 2023-06-23
+    
+  - 소수점 변경 : SELECT TO_CHAR(123.456, 'FM990.999') - 123.456
+                     SELECT TO_CHAR(0.12345, 'FM9990.99') - 0.12
+    - FM : 문자열의 공백제거 숫자의 최대 길이만큼 9999. 형식을 지정합니다 (9 : 값이 없으면 표시안함, 0: 값이 없으면 "0"으로 처리)
+            정수은 지정한 형식보다 값의 길이가 길면 오류, 소수 지정한 길이보다 길면 반올림
+    
+  - 숫자의 천단위 콤마 찍기 : SELECT TO_CHAR(12367, 'FM999,999') - 123,467
+                                SELECT TO_CHAR(123467, 'FML999,999') - ￦123,467
   
-- 소수점 변경 : SELECT TO_CHAR(123.456, 'FM990.999') - 123.456
-                   SELECT TO_CHAR(0.12345, 'FM9990.99') - 0.12
-  - FM : 문자열의 공백제거 숫자의 최대 길이만큼 9999. 형식을 지정합니다 (9 : 값이 없으면 표시안함, 0: 값이 없으면 "0"으로 처리)
-          정수은 지정한 형식보다 값의 길이가 길면 오류, 소수 지정한 길이보다 길면 반올림
+  - 지정한 길이만큼 0으로 채우기 : SELECT TO_CHAR(123) - 123
+                                     SELECT TO_CHAR(123, 'FM00000') - 00123
   
-- 숫자의 천단위 콤마 찍기 : SELECT TO_CHAR(12367, 'FM999,999') - 123,467
-                              SELECT TO_CHAR(123467, 'FML999,999') - ￦123,467
-
-- 지정한 길이만큼 0으로 채우기 : SELECT TO_CHAR(123) - 123
-                                   SELECT TO_CHAR(123, 'FM00000') - 00123
-
-- 날짜에 0 없애기 : SELECT TO_CHAR(SYSDATE, 'MM/DD') - 06/23 (날짜 포맷 변경)
-                      SELECT TO_CHAR(SYSDATE, 'FMMM/DD') - 6/23
-
-- 임의의 구분자로 날짜형식 만들기 : SELECT TO_CHAR('""YYYY"년 "MM"월 "DD"일"') - 2023년 06월 23일
-                                      SELECT TO_CHAR('""HH24"시 "MI"분 "SS"초"') - 12시 27분 32초
-
-- 시간의 오전, 오후값 반환 : SELECT TO_CHAR(SYSDATE, 'AM') - 오전
-                               SELECT TO_CHAR(SYSDATE, 'AM HH:MI:SS') - 오전 12시 30분 20초
-
-- 날짜의 요일 반환 : SELECT TO_CHAR(SYSDATE, 'D') - 6 (1(일)~7(토))
-                       SELECT TO_CHAR(SYSDATE, 'DY') - 금
-                       SELECT TO_CHAR(SYSDATE, 'DAY') - 금요일
-
-- 1년기준 몇일, 몇주 분기 반환 : SELECT TO_CHAR(SYSDATE, 'DDD') - 174 (365일 기준 몇일)
-                                   SELECT TO_CHAR(SYSDATE, 'WW') - 25 (1년(52주)기준 몇주)
-                                   SELECT TO_CHAR(SYSDATE, 'Q') - 2 (몇분기)
-
-- 간편한 날짜 변환 : SELECT TO_CHAR(SYSDATE, 'MON') - 6월
-                         SELECT TO_CHAR(SYSDATE, 'DL') - 2023년 6월 23일 금요일
+  - 날짜에 0 없애기 : SELECT TO_CHAR(SYSDATE, 'MM/DD') - 06/23 (날짜 포맷 변경)
+                        SELECT TO_CHAR(SYSDATE, 'FMMM/DD') - 6/23
+  
+  - 임의의 구분자로 날짜형식 만들기 : SELECT TO_CHAR('""YYYY"년 "MM"월 "DD"일"') - 2023년 06월 23일
+                                        SELECT TO_CHAR('""HH24"시 "MI"분 "SS"초"') - 12시 27분 32초
+  
+  - 시간의 오전, 오후값 반환 : SELECT TO_CHAR(SYSDATE, 'AM') - 오전
+                                 SELECT TO_CHAR(SYSDATE, 'AM HH:MI:SS') - 오전 12시 30분 20초
+  
+  - 날짜의 요일 반환 : SELECT TO_CHAR(SYSDATE, 'D') - 6 (1(일)~7(토))
+                         SELECT TO_CHAR(SYSDATE, 'DY') - 금
+                         SELECT TO_CHAR(SYSDATE, 'DAY') - 금요일
+  
+  - 1년기준 몇일, 몇주 분기 반환 : SELECT TO_CHAR(SYSDATE, 'DDD') - 174 (365일 기준 몇일)
+                                     SELECT TO_CHAR(SYSDATE, 'WW') - 25 (1년(52주)기준 몇주)
+                                     SELECT TO_CHAR(SYSDATE, 'Q') - 2 (몇분기)
+  
+  - 간편한 날짜 변환 : SELECT TO_CHAR(SYSDATE, 'MON') - 6월
+                           SELECT TO_CHAR(SYSDATE, 'DL') - 2023년 6월 23일 금요일
 
 ### DECODE
 
